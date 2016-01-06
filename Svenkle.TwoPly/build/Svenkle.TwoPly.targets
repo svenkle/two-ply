@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      TwoPly
+    </BuildDependsOn>
+    <TransformWebConfigEnabled>false</TransformWebConfigEnabled>
+    <AutoParameterizationWebConfigConnectionStrings>false</AutoParameterizationWebConfigConnectionStrings>
+  </PropertyGroup>
+  <UsingTask TaskName="PublishTask" AssemblyFile="Svenkle.TwoPly.dll" />
+  <Target Name="TwoPly" DependsOnTargets="PipelinePreDeployCopyAllFilesToOneFolder">
+    <ItemGroup>
+      <PublishFiles Include="$(_PackageTempDir)\**\*.*" />
+    </ItemGroup>
+    <PublishTask SourceFiles="@(PublishFiles->'%(RecursiveDir)%(Filename)%(Extension)')" ConfigurationFile="$(TwoPlyConfigurationFile)" SkipUnchangedFiles="$(TwoPlySkipUnchangedFiles)"/>
+  </Target>
+</Project>

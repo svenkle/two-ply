@@ -1,0 +1,6 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TwoPlyConfigurationFile>twoply.txt</TwoPlyConfigurationFile>
+    <TwoPlySkipUnchangedFiles>true</TwoPlySkipUnchangedFiles>
+  </PropertyGroup>
+</Project>
