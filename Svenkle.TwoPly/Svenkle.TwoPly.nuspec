@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Svenkle.TwoPly</id>
+    <title>Two Ply</title>
+    <version>1.0.0</version>
+	<authors>Svenkle</authors>
+    <owners>Svenkle</owners>
+	<projectUrl>https://github.com/svenkle/two-ply</projectUrl>
+	<licenseUrl>https://github.com/svenkle/two-ply/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<summary>Two Ply is a deployment utility allowing a single solution to be deployed to multiple locations each with different configuration.</summary>
+    <description>Two Ply is a deployment utility allowing a single solution to be deployed to multiple locations each with different configuration.</description>
+    <copyright>Copyright © Svenkle 2015</copyright>
+    <developmentDependency>true</developmentDependency>
+	<releaseNotes>Initial release of Two Ply</releaseNotes>
+    <tags>deployment configuration transforms</tags>
+  </metadata>
+  <files>
+    <file src="content\**\*" target="content\" />
+    <file src="build\**\*" target="build\" />
+    <file src="bin\$configuration$\*.dll" target="build\" />
+  </files>
+</package>
