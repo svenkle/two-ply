@@ -44,12 +44,9 @@ namespace Svenkle.TwoPly
             catch (Exception exception)
             {
                 Log.LogErrorFromException(exception);
-                return !FailOnUnhandledException;
+                return false;
             }
         }
-
-        [Required]
-        public bool FailOnUnhandledException { get; set; }
 
         [Required]
         public bool SkipUnchangedFiles { get; set; }
