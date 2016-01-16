@@ -10,9 +10,7 @@ EXIT /b %build%
 :: Download NuGet if its not already there
 IF NOT EXIST .\packages\nuget\nuget.exe (
 IF NOT EXIST .\packages\nuget\ MKDIR .\packages\nuget
-ECHO $sourceNugetExe = 'http://dist.nuget.org/win-x86-commandline/latest/nuget.exe' > .\nuget.ps1
-ECHO $targetNugetExe = ".\packages\nuget\nuget.exe" >> .\nuget.ps1
-ECHO Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe >> .\nuget.ps1
+ECHO ^(New-Object System.Net.WebClient^).DownloadFile('http://dist.nuget.org/win-x86-commandline/latest/nuget.exe', '.\\packages\\nuget\\nuget.exe'^) > .\nuget.ps1
 PowerShell.exe -ExecutionPolicy Bypass -File .\nuget.ps1
 )
 
