@@ -1,7 +1,7 @@
-namespace Svenkle.TwoPly.Services.Interfaces
+﻿namespace Svenkle.TwoPly.Services.Interfaces
 {
     public interface IXmlTransformService
     {
-        bool Transform(string source, string transform, string destination);
+        void Transform(string source, string transform, string destination);
     }
 }

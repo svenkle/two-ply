@@ -1,30 +1,31 @@
 @ECHO OFF
 
-:: Use Release build configuration unless specified
 IF "%1"=="" (
 CALL build.bat Release
 SET build=%errorlevel%
 EXIT /b %build%
 )
 
-:: Download NuGet if its not already there
 IF NOT EXIST .\packages\nuget\nuget.exe (
 IF NOT EXIST .\packages\nuget\ MKDIR .\packages\nuget
-ECHO ^(New-Object System.Net.WebClient^).DownloadFile('http://dist.nuget.org/win-x86-commandline/latest/nuget.exe', '.\\packages\\nuget\\nuget.exe'^) > .\nuget.ps1
-PowerShell.exe -ExecutionPolicy Bypass -File .\nuget.ps1
+ECHO ^(New-Object System.Net.WebClient^).DownloadFile('https://dist.nuget.org/win-x86-commandline/v3.4.4/NuGet.exe', '.\\packages\\nuget\\nuget.exe'^) > .\packages\nuget\nuget.ps1
+PowerShell.exe -ExecutionPolicy Bypass -File .\packages\nuget\nuget.ps1
 )
 
-:: Restore all packages
 .\packages\nuget\nuget.exe restore
+IF ERRORLEVEL 1 GOTO ERROR
 
-:: Build Two Ply
 "C:\Program Files (x86)\MSBuild\14.0\Bin\Msbuild.exe" /t:Build .\Svenkle.TwoPly\Svenkle.TwoPly.csproj /p:VisualStudioVersion=14.0;Configuration=%1
+IF ERRORLEVEL 1 GOTO ERROR
 
-:: Package Two Ply
 IF NOT EXIST .\build MKDIR .\build
-.\packages\nuget\nuget.exe pack .\Svenkle.TwoPly\Svenkle.TwoPly.nuspec -Prop Configuration=Release -Verbosity normal -OutputDirectory .\build
+IF ERRORLEVEL 1 GOTO ERROR
 
-:: Clean up
-IF EXIST .\nuget.ps1 DEL .\nuget.ps1
+.\packages\nuget\nuget.exe pack .\Svenkle.TwoPly\Svenkle.TwoPly.nuspec -Prop Configuration=Release -Verbosity normal -OutputDirectory .\build
+IF ERRORLEVEL 1 GOTO ERROR
 
 EXIT /b 0
+
+:ERROR
+ECHO Build Failed!
+EXIT /b -1

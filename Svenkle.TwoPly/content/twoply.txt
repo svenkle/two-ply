@@ -1,6 +1,7 @@
 ﻿# Two Ply Configuration
 # https://github.com/svenkle/two-ply
 
-# Default Build and Deploy
-Web.Debug.config => Web.config
-Path = obj\two-ply-example
+# Sample definition
+TRANSFORM Web.config Web.Debug.config
+DEPLOY obj\twoply-sample
+
