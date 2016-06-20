@@ -87,7 +87,7 @@ namespace Svenkle.TwoPly
             var configurationFilePath = fileSystem.Path.GetFileName(globalContext.ConfigurationFile);
 
             var sourceFiles = globalContext.SourceFiles
-                .Where(x => x != configurationFilePath)
+                .Where(x => !x.Equals(configurationFilePath, StringComparison.InvariantCultureIgnoreCase))
                 .ToArray();
 
             var destinationFiles = sourceFiles.Select(x => new TaskItem(fileSystem.Path.Combine(executionContext.WorkingDirectory, x)));
